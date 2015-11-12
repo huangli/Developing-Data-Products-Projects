@@ -1,9 +1,11 @@
 library(shiny)
-library(rCharts)
+library(ggplot2)
+source("plot.R")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-  
+ 
+   
   # Expression that generates a histogram. The expression is
   # wrapped in a call to renderPlot to indicate that:
   #
@@ -26,13 +28,19 @@ shinyServer(function(input, output) {
     df[colName]
   })
   
-  output$distPlot <- renderChart2({
-    dt <- attitude[which(attitude$rating <= input$rating[2] &  attitude$rating >= input$rating[1]), ]
-    p1 <- nPlot(rating ~ complaints, data = dt, type = 'scatterChart')
-    
-    p1$xAxis(axisLabel = 'Complaints')
-    p1$yAxis(axisLabel = 'Rating')
-    p1$chart(tooltipContent = "#! function(key, x, y){return 'Complaints: ' + x + '  Rating: ' + y  } !#")
-    p1
-  })
+  output$distPlot <- renderPlot({
+    df <- attitude[which(attitude$rating <= input$rating[2] &  attitude$rating >= input$rating[1]), ]
+    df <- melt(df)
+    if (input$cRating == 1){
+      p1 <- ggplot(data=df[which(df$variable == "rating"),], aes(df$variable))
+      myHist(p1, "rating","The histogram of suvey rating")
+    }
+#     p1 <- nPlot(rating ~ complaints, data = dt, type = 'scatterChart')
+#     
+#     p1$xAxis(axisLabel = 'Complaints')
+#     p1$yAxis(axisLabel = 'Rating')
+#     p1$chart(tooltipContent = "#! function(key, x, y){return 'Complaints: ' + x + '  Rating: ' + y  } !#")
+#     p1
+  
+   })
 })
