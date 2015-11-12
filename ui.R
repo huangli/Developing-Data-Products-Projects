@@ -10,10 +10,18 @@ shinyUI(
              tabPanel("Explore the Data",
                       sidebarPanel(
                         sliderInput("rating",
-                                    "Employee rating:",
+                                    "Employee rating filter:",
                                     min = 1,
                                     max = 100,
-                                    value = c(10,50))
+                                    value = c(10,50)),
+                        h4("Column Filter"),
+                        checkboxInput("cRating", "Rating", value = TRUE, width = 100),
+                        checkboxInput("cComplaint", "Complaints", value = TRUE, width = 100),
+                        checkboxInput("cPrivilges", "Privilges", value = TRUE, width = 100),
+                        checkboxInput("cLearning", "Learning", value = TRUE, width = 100),
+                        checkboxInput("cRaises", "Raises", value = TRUE, width = 100),
+                        checkboxInput("cCritical", "Critical", value = TRUE, width = 100),
+                        checkboxInput("cAdvance", "Advance", value = TRUE, width = 100)
                       ),
                       # Show a plot of the generated distribution  
                       # mytable1: dataset 
@@ -26,11 +34,11 @@ shinyUI(
                                    showOutput("distPlot","nvd3"))
                         ) 
                       )
-            ),
-            tabPanel("About",
-                     mainPanel(
-                       includeMarkdown("about.md")
-                     )
-            ) # end of "About" tab panel
+             ),
+             tabPanel("About",
+                      mainPanel(
+                        includeMarkdown("about.md")
+                      )
+             ) # end of "About" tab panel
   )
 )
