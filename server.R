@@ -1,6 +1,5 @@
 library(shiny)
-library(ggplot2)
-source("plot.R")
+library(rCharts)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -23,24 +22,26 @@ shinyServer(function(input, output) {
     if (input$cRaises == 1) colName <- c(colName, "raises")
     if (input$cCritical == 1) colName <- c(colName, "critical")
     if (input$cAdvance == 1) colName <- c(colName, "advance")
-    
     df <- attitude[which(attitude$rating <= input$rating[2] &  attitude$rating >= input$rating[1]), ]
     df[colName]
   })
   
-  output$distPlot <- renderPlot({
+  output$distPlot <- renderChart2({
+    colName <- NULL
+    if (input$cRating == 1) colName <- "rating"
+    if (input$cComplaint == 1) colName <- c(colName, "complaints")
+    if (input$cPrivilges == 1) colName <- c(colName, "privileges")
+    if (input$cLearning == 1) colName <- c(colName, "learning")
+    if (input$cRaises == 1) colName <- c(colName, "raises")
+    if (input$cCritical == 1) colName <- c(colName, "critical")
+    if (input$cAdvance == 1) colName <- c(colName, "advance")
     df <- attitude[which(attitude$rating <= input$rating[2] &  attitude$rating >= input$rating[1]), ]
-    df <- melt(df)
-    if (input$cRating == 1){
-      p1 <- ggplot(data=df[which(df$variable == "rating"),], aes(df$variable))
-      myHist(p1, "rating","The histogram of suvey rating")
-    }
-#     p1 <- nPlot(rating ~ complaints, data = dt, type = 'scatterChart')
-#     
-#     p1$xAxis(axisLabel = 'Complaints')
-#     p1$yAxis(axisLabel = 'Rating')
-#     p1$chart(tooltipContent = "#! function(key, x, y){return 'Complaints: ' + x + '  Rating: ' + y  } !#")
-#     p1
-  
+    df <- df[colName]
+    
+    d1 <- as.matrix(df)
+    d1 <- melt(d1)
+    names(d1)[1:2] <- c("id", "type")
+    x1 <- xPlot(value ~ type, group = "id", data = d1, type = "line-dotted")
+    x1
    })
 })

@@ -14,8 +14,8 @@ departments. The numbers give the percent proportion of favourable responses to 
 - advancel:	numeric	Advancement
 
 ### Function
-- The dataset tab you can view all the survey data and filter the data by slider
-- The visualize The Data tab there is a scatter plot about rating and complaints, you can also filter the data by slider 
+- The dataset tab you can view all the survey data and filter the data by slider, and filter the column by checkbox
+- The visualize The Data tab there is a line chart where you can see the relatiopship between the resulats, also you filter them by checkbox and slider.
 
 ### Author
-[huangli.github.io](huangli.github.io)
+[huangli.github.io](https://github.com/huangli/Developing-Data-Products-Projects)

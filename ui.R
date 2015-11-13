@@ -1,6 +1,6 @@
 library(shiny)
-library(rCharts)
 require(markdown)
+library(rCharts)
 
 # Define UI for application that draws a histogram
 shinyUI(
@@ -25,13 +25,13 @@ shinyUI(
                       ),
                       # Show a plot of the generated distribution  
                       # mytable1: dataset 
-                      # distPlot: scatter chart 
+                      # distPlot: line chart 
                       mainPanel(
                         tabsetPanel(
                           tabPanel(p(icon("table"), "Dataset"),
                                    dataTableOutput("mytable1")),
                           tabPanel(p(icon("search"), "Visualize the Data"),
-                                   showOutput("distPlot","nvd3"))
+                                   showOutput("distPlot","xcharts"))
                         ) 
                       )
              ),
