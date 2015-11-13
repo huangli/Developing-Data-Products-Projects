@@ -1,0 +1,44 @@
+Developing Data Product - Coursera Project
+========================================================
+author: Li Huang
+date: 11/13/2015
+transition: cube
+
+
+Employee Attitude Data Explorer Overview
+========================================================
+type: sub-section
+  This little application on [shinyapp](huangli.shinyapps.io/ganji) will help you to investigate the employee survey data, you could filter the data by rating or look at certain columns. Or find the relationship between the result. It uses following third packages to build:
+
+- [Shiny](shiny.rstudio.com)
+- [rChart](rcharts.io)
+
+The Data 
+========================================================
+type: sub-section
+  The data is from a survey of the clerical employees of a large financial organization, 
+the data are aggregated from the questionnaires of the approximately 35 employees for each of 30 (randomly selected) 
+departments. The numbers give the percent proportion of favourable responses to seven questions in each department. 
+There are 7 types of data: rating,complaints,privileges,learning,raises,critical,advance.
+
+The Function
+========================================================
+type: sub-section
+- In the data tab page, you could use the rating slider input to filter the survey data or checkbox to filter certain columns
+- In the Visualize page, you could do the same things, the line chart will show the relationship between the results
+
+The Code Sample
+========================================================
+
+```{r,eval=FALSE}
+    df <- attitude[which(attitude$rating <= input$rating[2] &  attitude$rating >= input$rating[1]), ]
+    df <- df[colName]
+    
+    d1 <- as.matrix(df)
+    d1 <- melt(d1)
+    names(d1)[1:2] <- c("id", "type")
+    x1 <- xPlot(value ~ type, group = "id", data = d1, type = "line-dotted")
+    x1
+```
+
+
