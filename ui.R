@@ -1,8 +1,7 @@
-library(shiny)
+llibrary(shiny)
 require(markdown)
 library(rCharts)
 
-# Define UI for application that draws a histogram
 shinyUI(
   
   navbarPage("Employee attitude survey", 
@@ -23,7 +22,6 @@ shinyUI(
                         checkboxInput("cCritical", "Critical", value = TRUE, width = 100),
                         checkboxInput("cAdvance", "Advance", value = TRUE, width = 100)
                       ),
-                      # Show a plot of the generated distribution  
                       # mytable1: dataset 
                       # distPlot: line chart 
                       mainPanel(
